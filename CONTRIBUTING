@@ -44,7 +44,3 @@ Add a corresponding test in `tests/`.
 2. Make your changes, with tests
 3. Run `pytest` to confirm everything passes
 4. Push and open a Pull Request, describing what changed and why
-
-## Code of Conduct
-
-Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before participating.
