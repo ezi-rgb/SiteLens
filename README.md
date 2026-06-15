@@ -36,7 +36,7 @@ sitelens scan example.com
 
 🚧 Early development (v0.1.0) — core checks working, contributions welcome!
 
-See [ROADMAP.md](docs/ROADMAP.md) for what's coming next.
+See [ROADMAP.md](Docs/ROADMAP.md) for what's coming next.
 
 ## Contributing
 
