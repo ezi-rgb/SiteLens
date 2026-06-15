@@ -23,13 +23,13 @@ It does NOT perform attacks, exploits, or unauthorized access attempts.
 ## Installation
 
 \`\`\`bash
-pip install siteguard-lite
+pip install sitelens
 \`\`\`
 
 ## Usage
 
 \`\`\`bash
-siteguard scan example.com
+sitelens scan example.com
 \`\`\`
 
 ## Status
