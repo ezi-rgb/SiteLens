@@ -1,5 +1,5 @@
 # SiteLens
-
+[![Tests](https://github.com/ezi-rgb/SiteLens/actions/workflows/tests.yml/badge.svg)](https://github.com/ezi-rgb/SiteLens/actions/workflows/tests.yml)
 > Lightweight, non-intrusive security scanner for small websites — built for people, not just security experts.
 
 ## What is this?
