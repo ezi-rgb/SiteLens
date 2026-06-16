@@ -1,13 +1,33 @@
+import importlib
+import pkgutil
 from datetime import datetime, timezone
 
-from sitelens.checks import dns_check, exposed_files_check, headers_check, ssl_check
+from sitelens import checks
 
-ALL_CHECKS = [
-    ssl_check.run,
-    headers_check.run,
-    dns_check.run,
-    exposed_files_check.run,
-]
+
+def discover_checks() -> list:
+    """
+    Automatically discovers all check modules inside sitelens.checks
+    and returns a list of their `run` functions.
+
+    A valid check module must define a `run(domain: str) -> dict` function.
+    Modules that don't follow this contract are skipped with a warning.
+    """
+    check_functions = []
+
+    for module_info in pkgutil.iter_modules(checks.__path__):
+        module = importlib.import_module(f"sitelens.checks.{module_info.name}")
+
+        if not hasattr(module, "run"):
+            print(
+                f"Warning: skipping '{module_info.name}' — "
+                f"no 'run' function found."
+            )
+            continue
+
+        check_functions.append(module.run)
+
+    return check_functions
 
 
 def run_all_checks(domain: str) -> dict:
@@ -28,7 +48,8 @@ def run_all_checks(domain: str) -> dict:
             }
         }
     """
-    results = [check(domain) for check in ALL_CHECKS]
+    checks_to_run = discover_checks()
+    results = [check(domain) for check in checks_to_run]
 
     passed_count = sum(1 for r in results if r["passed"])
     failed_count = len(results) - passed_count
