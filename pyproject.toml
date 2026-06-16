@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sitelens"
+version = "0.1.0"
+description = "See your website through a security lens. An open-source website security assessment tool for small businesses, developers, and learners."
+requires-python = ">=3.9"
+dependencies = [
+    "requests",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
