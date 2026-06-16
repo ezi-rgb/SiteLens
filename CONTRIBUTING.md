@@ -20,7 +20,10 @@ we welcome all skill levels.
 
 ## Adding a New Check
 
-Each check lives in `src/sitelens/checks/` and follows this structure:
+Checks are automatically discovered — you don't need to register them anywhere!
+
+1. Create a new file in `src/sitelens/checks/`, e.g. `cookie_check.py`
+2. Define a `run(domain: str) -> dict` function following this contract:
 
 \`\`\`python
 def run(domain: str) -> dict:
@@ -36,7 +39,8 @@ def run(domain: str) -> dict:
     """
 \`\`\`
 
-Add a corresponding test in `tests/`.
+3. Add a corresponding test in `tests/test_your_check.py`
+4. That's it — your check will run automatically as part of every scan.
 
 ## Pull Request Process
 
