@@ -9,6 +9,8 @@ description = "See your website through a security lens. An open-source website 
 requires-python = ">=3.9"
 dependencies = [
     "requests",
+    "dnspython",
+    "colorama",
 ]
 
 [tool.setuptools.packages.find]
