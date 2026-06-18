@@ -76,5 +76,27 @@
     {% if error %}
         <p style="color: #ef4444;">{{ error }}</p>
     {% endif %}
+
+    {% if history %}
+        <h2 style="margin-top: 40px; font-size: 1.1rem;">Recent Scans</h2>
+        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+            <tr style="text-align: left; border-bottom: 1px solid #e0e0e0;">
+                <th style="padding: 8px 0;">Domain</th>
+                <th>Scanned At</th>
+                <th>Result</th>
+                <th>Severity</th>
+            </tr>
+            {% for scan in history %}
+                <tr style="border-bottom: 1px solid #f0f0f0;">
+                    <td style="padding: 8px 0;">{{ scan.domain }}</td>
+                    <td>{{ scan.scanned_at[:19] }}</td>
+                    <td>{{ scan.passed_checks }}/{{ scan.total_checks }}</td>
+                    <td>{{ scan.highest_severity }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
 </body>
 </html>

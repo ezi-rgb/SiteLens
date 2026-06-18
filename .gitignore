@@ -223,3 +223,6 @@ __marimo__/
 !CONTRIBUTING.md
 !CODE_OF_CONDUCT.md
 !docs/*.md
+
+*.db
+sitelens.db
