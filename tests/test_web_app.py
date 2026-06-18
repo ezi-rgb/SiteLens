@@ -1,10 +1,23 @@
 from unittest.mock import patch
 
+import pytest
 from fastapi.testclient import TestClient
+from sqlmodel import SQLModel, create_engine
 
+from sitelens.web import database
 from sitelens.web.app import app
 
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True)
+def use_temporary_database(monkeypatch, tmp_path):
+    """Ensures the web app tests use a fresh, temporary database with tables created."""
+    test_db_path = tmp_path / "test_sitelens.db"
+    test_engine = create_engine(f"sqlite:///{test_db_path}")
+    monkeypatch.setattr(database, "engine", test_engine)
+    SQLModel.metadata.create_all(test_engine)
+    yield
 
 
 def test_home_page_loads():
