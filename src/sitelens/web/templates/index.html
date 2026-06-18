@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SiteLens — Security Scanner</title>
+    <style>
+        body {
+            font-family: -apple-system, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            color: #1a1a1a;
+        }
+        h1 { font-size: 1.5rem; }
+        form { display: flex; gap: 8px; margin-bottom: 24px; }
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .result-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .severity-info { border-left: 4px solid #22c55e; }
+        .severity-low { border-left: 4px solid #3b82f6; }
+        .severity-medium { border-left: 4px solid #eab308; }
+        .severity-high { border-left: 4px solid #ef4444; }
+        .summary {
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 SiteLens</h1>
+    <p>Lightweight, non-intrusive security scanner for small websites.</p>
+
+    <form method="post" action="/scan">
+        <input type="text" name="domain" placeholder="example.com"
+               value="{{ domain or '' }}" required>
+        <button type="submit">Scan</button>
+    </form>
+
+    {% if report %}
+        <div class="summary">
+            {{ report.summary.passed }}/{{ report.summary.total }} checks passed
+            (highest severity: {{ report.summary.highest_severity }})
+        </div>
+
+        {% for result in report.results %}
+            <div class="result-card severity-{{ result.severity }}">
+                <strong>{{ "✅" if result.passed else "⚠️" }} {{ result.name }}</strong>
+                ({{ result.severity }})
+                <p>{{ result.message }}</p>
+                {% if not result.passed %}
+                    <p><em>Recommendation: {{ result.recommendation }}</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if error %}
+        <p style="color: #ef4444;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
